@@ -14,7 +14,7 @@ public class Tablero {
     Jugador jugador = new Jugador();
     faciles tFaciles = new faciles();
     medias tMedias = new medias();
-    // dificiles tDificiles = new dificiles();
+    dificiles tDificiles = new dificiles();
     
     void separacion(){
         System.out.println("................................................");
@@ -23,6 +23,8 @@ public class Tablero {
     public void mostrarTableroInicial(){
         jugador.datosJugador();
         tFaciles.iniciarDatosFaciles();
+        tMedias.iniciarDatosMedios();
+        tDificiles.iniciarDatosDificiles();
         generarTrampas();
         crearTablero();
         redibujarTablero();
@@ -32,12 +34,14 @@ public class Tablero {
         Jugador jugador,
         int[] trampas,
         faciles tFaciles,
-        medias tMedias
+        medias tMedias,
+        dificiles tDificiles
     ){
         this.trampas = trampas;
         this.jugador = jugador;
         this.tFaciles = tFaciles;
         this.tMedias = tMedias;
+        this.tDificiles = tDificiles;
         crearTablero();
         redibujarTablero();
     }
@@ -65,27 +69,29 @@ public class Tablero {
 
     
     private void turno() {
-        int opcion = 0;
+        String opcion = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         System.out.println("Ingrese una opcion:");
-        System.out.println("1. Lanzar Dado");
-        System.out.println("2. Regresar al menu principal");
+        System.out.println("l. Lanzar Dado");
+        System.out.println("p. Regresar al menu principal");
         
         try{
-            opcion = Integer.parseInt(br.readLine());
+            opcion = br.readLine().toLowerCase();
             
             switch(opcion){
-                case 1:
+                case "l":
                     tirarDado();
                     break;
-                case 2:
+                case "p":
                     Juego juego = new Juego();
                     juego.menu(
                         jugador,
                         trampas,
                         tFaciles,
-                        tMedias
+                        tMedias,
+                        tDificiles,
+                        false
                     );
                     break;
                 default:                    
@@ -93,7 +99,7 @@ public class Tablero {
                     turno();
                     break;
             }
-        }catch(IOException | NumberFormatException ex){
+        }catch(IOException ex){
             System.out.println("Opcion invalida");
             turno();
         }
@@ -105,14 +111,28 @@ public class Tablero {
         
         int avanza = (int) (Math.random() * 6) + 1;
         
-        jugador.cambioDePosicion(avanza);
+        boolean estado = jugador.cambioDePosicion(avanza);
         
-        System.out.println("El jugador avanza "+ avanza +" espacios");
-        for(int i : trampas){
-            if(i == jugador.posicion){verificarPosicion(); break;}
+        if(!estado){
+            System.out.println("El jugador avanza "+ avanza +" espacios");
+            for(int i : trampas){
+                if(i == jugador.posicion){verificarPosicion(); break;}
+            }
+            System.out.println("Redibujando tablero...");
+            redibujarTablero();
+        }else{
+            System.out.println("Regresando al menu, alli podra obtener su bitacora en la opcion [3] -> opcion [2]");
+            System.out.println("");
+            Juego juego = new Juego();
+                    juego.menu(
+                        jugador,
+                        trampas,
+                        tFaciles,
+                        tMedias,
+                        tDificiles,
+                        true
+                    );
         }
-        System.out.println("Redibujando tablero...");
-        redibujarTablero();
     }
     
     private void verificarPosicion(){
@@ -122,15 +142,20 @@ public class Tablero {
             int trampa = 0;
             switch(jugador.fila){
                 case 1: case 2:
-                    trampa = tFaciles.seleccionarProblema(jugador.posicion);
-                    tFaciles.problema(trampa);
+                    trampa = tDificiles.seleccionarProblema(jugador.posicion);
+                    tDificiles.problema(trampa);
+                    // trampa = tFaciles.seleccionarProblema(jugador.posicion);
+                    // tFaciles.problema(trampa);
                     break;
                 case 3: case 4: case 5:
-                    trampa = tMedias.seleccionarProblema(jugador.posicion);
-                    tMedias.problema(trampa);
+                    trampa = tDificiles.seleccionarProblema(jugador.posicion);
+                    tDificiles.problema(trampa);
+                    // trampa = tMedias.seleccionarProblema(jugador.posicion);
+                    // tMedias.problema(trampa);
                     break;
                 case 6: case 7: case 8:
-                    
+                    trampa = tDificiles.seleccionarProblema(jugador.posicion);
+                    tDificiles.problema(trampa);
                     break;
                 default:
                     System.out.print("Manipulacion de datos detectada, borrando partida");

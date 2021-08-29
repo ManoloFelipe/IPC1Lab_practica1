@@ -191,7 +191,7 @@ public class faciles {
             anguloAlfa = Double.parseDouble(br.readLine());
         }catch (IOException | NumberFormatException ex){
             System.out.println("Opcion invalida");
-            trampaUno();
+            trampaDos();
         }
 
         if(trampas[0] == 2){

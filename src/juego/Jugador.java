@@ -44,13 +44,15 @@ public class Jugador {
         return retorno;
     }
         
-    void cambioDePosicion(int avanza){
+    public boolean cambioDePosicion(int avanza){
         posicion += avanza;
         if (posicion > 64) {
             ganar();
+            return true;
         }
         
         fila = (int) Math.ceil((double)posicion/(double)8);
+        return false;
     }
     
     void ganar(){

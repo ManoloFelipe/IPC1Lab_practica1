@@ -13,8 +13,8 @@ public class medias {
     public int[] trampas = new int[2];
     public int[] posiciones = new int[2];
     public boolean[] resultados = new boolean[2];
-
-    public int[] error = new int[2];
+    public int[][][] matrices = new int[4][0][0];
+    public int[][][] error = new int[2][][];
     public int[][] posicionError = new int[2][2];
     public int[][][] respuestas = new int[2][0][0];
 
@@ -131,13 +131,13 @@ public class medias {
                 if(matrizR[i][j] != matrizUsuario[i][j]){
                     resultado = false;
                     if(trampas[0] == 1) {
-                        error[0] = matrizUsuario[i][j];
+                        error[0] = matrizUsuario;
                         posicionError[0][0] = i;
                         posicionError[0][1] = j;
                         respuestas[0] = matrizR;
                         resultados[0] = false;
                     }else {
-                        error[1] = matrizUsuario[i][j];
+                        error[1] = matrizUsuario;
                         posicionError[1][0] = i;
                         posicionError[1][1] = j;
                         respuestas[1] = matrizR;
@@ -146,6 +146,14 @@ public class medias {
                     break;
                 }
             }
+        }
+
+        if(trampas[0] == 1){
+            matrices[0] = matrizA;
+            matrices[1] = matrizB;
+        }else{
+            matrices[2] = matrizA;
+            matrices[3] = matrizB;
         }
         
         if(resultado){            
@@ -197,13 +205,13 @@ public class medias {
                 if(matrizR[i][j] != matrizUsuario[i][j]){
                     resultado = false;
                     if(trampas[0] == 2) {
-                        error[0] = matrizUsuario[i][j];
+                        error[0] = matrizUsuario;
                         posicionError[0][0] = i;
                         posicionError[0][1] = j;
                         respuestas[0] = matrizR;
                         resultados[0] = false;
                     }else {
-                        error[1] = matrizUsuario[i][j];
+                        error[1] = matrizUsuario;
                         posicionError[1][0] = i;
                         posicionError[1][1] = j;
                         respuestas[1] = matrizR;
@@ -214,6 +222,14 @@ public class medias {
             }
         }
         
+        if(trampas[0] == 2){
+            matrices[0] = matrizA;
+            matrices[1] = matrizB;
+        }else{
+            matrices[2] = matrizA;
+            matrices[3] = matrizB;
+        }
+
         if(resultado){            
             System.out.println("");
             System.out.println("Correcto!!");
@@ -265,13 +281,13 @@ public class medias {
                 if(matrizR[i][j] != matrizUsuario[i][j]){
                     resultado = false;
                     if(trampas[0] == 3) {
-                        error[0] = matrizUsuario[i][j];
+                        error[0] = matrizUsuario;
                         posicionError[0][0] = i;
                         posicionError[0][1] = j;
                         respuestas[0] = matrizR;
                         resultados[0] = false;
                     }else {
-                        error[1] = matrizUsuario[i][j];
+                        error[1] = matrizUsuario;
                         posicionError[1][0] = i;
                         posicionError[1][1] = j;
                         respuestas[1] = matrizR;
@@ -280,6 +296,14 @@ public class medias {
                     break;
                 }
             }
+        }
+
+        if(trampas[0] == 3){
+            matrices[0] = matrizA;
+            matrices[1] = matrizB;
+        }else{
+            matrices[2] = matrizA;
+            matrices[3] = matrizB;
         }
         
         if(resultado){            

@@ -74,7 +74,9 @@ public class Juego {
         Jugador jugador,
         int[] trampas,
         faciles tFaciles,
-        medias tMedias
+        medias tMedias,
+        dificiles tDificiles,
+        boolean juegoFinalizado
     ){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int opcion = 0;
@@ -92,12 +94,15 @@ public class Juego {
                     tab.mostrarTableroInicial();
                     break;
                 case 2:
+                    if(!juegoFinalizado)
                     tab.reanudarJuego(
                         jugador,
                         trampas,
                         tFaciles,
-                        tMedias
+                        tMedias,
+                        tDificiles
                     );
+                    else System.out.println("Partida terminada");
                     menu();
                     break;
                 case 3:
@@ -109,19 +114,21 @@ public class Juego {
                         opcion = Integer.parseInt(br.readLine());
                         switch(opcion){
                             case 1:                                
-                                reportes.generarReporte1(tFaciles,tMedias);
-                                menu(jugador,trampas,tFaciles,tMedias);
-                            break;
+                                reportes.generarReporte1(tFaciles,tMedias,tDificiles,jugador);
+                                menu(jugador,trampas,tFaciles,tMedias,tDificiles,juegoFinalizado);
+                                break;
                             case 2:
-                                System.out.println("Juego en curso, aun no disponible");
+                                if(!juegoFinalizado)System.out.println("Juego en curso, aun no disponible");
+                                else reportes.generarReporte2(tFaciles, tMedias, tDificiles, jugador);
+                                menu(jugador,trampas,tFaciles,tMedias,tDificiles,juegoFinalizado);
                                 break;
                             case 3:
-                                menu(jugador,trampas,tFaciles,tMedias);
+                                menu(jugador,trampas,tFaciles,tMedias,tDificiles,juegoFinalizado);
                                 break;
                         }
                     } catch (IOException | NumberFormatException ex) {
                         System.out.println("Opcion invalida, regresando al menu");
-                        menu(jugador,trampas,tFaciles,tMedias);
+                        menu(jugador,trampas,tFaciles,tMedias,tDificiles,juegoFinalizado);
                     }
                     menu();
                     break;
@@ -135,7 +142,7 @@ public class Juego {
             }
         }catch(IOException | NumberFormatException ex){
             System.out.println("Opcion invalida");
-            menu(jugador,trampas,tFaciles,tMedias);
+            menu(jugador,trampas,tFaciles,tMedias,tDificiles,juegoFinalizado);
         }
     }
 }
