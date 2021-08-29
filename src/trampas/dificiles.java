@@ -12,15 +12,15 @@ import java.text.DecimalFormat;
  */
 public class dificiles {
 
-    int[] trampas = new int[2];
-    int[] posiciones = new int[2];
-    double[] errorTipo1 = new double[2]; //error en determinante
-    double[][][] errorTipo2 = new double[2][0][0]; //error en matriz
-	boolean[] resultados = new boolean[2];
-	double[] determinantesRespuesta = new double[2];
-    double[][][] matricesRespuesta = new double[2][0][0];
-    double[][][] matrices = new double[4][0][0];
-    double[][][] matricesGaussJordan = new double[2][0][0];
+    public int[] trampas = new int[2];
+    public int[] posiciones = new int[2];
+    public double[] errorTipo1 = new double[2]; //error en determinante
+    public double[][][] errorTipo2 = new double[2][0][0]; //error en matriz
+	public boolean[] resultados = new boolean[2];
+	public double[] determinantesRespuesta = new double[2];
+    public double[][][] matricesRespuesta = new double[2][0][0];
+    public double[][][] matrices = new double[4][0][0];
+    public double[][][] matricesGaussJordan = new double[2][0][0];
 
 	public void iniciarDatosDificiles() {
         trampas[0] = 0;
@@ -79,6 +79,7 @@ public class dificiles {
         matrizB[3][0] = 25; matrizB[3][1] = 6; matrizB[3][2] = 7; matrizB[3][3] = 4;
 
 		double determinanteR = redondear3decimales(encontrarDeterminante(matrizB));
+		System.out.println(determinanteR);
 		if(determinanteR == 0) matrizR = new double[1][1];
 		else {
 			matrizBInversa = inversaGaussJordan(matrizB);
@@ -97,6 +98,7 @@ public class dificiles {
         System.out.println("¿cual es la determinante de la matrizB?, recuerde redondear a 3 decimales:");
 
 		determinanteUsuario = ingresoUsuarioDeterminante();
+		System.out.println("Ingreso:" + determinanteUsuario + " res. correcta:"+ determinanteR);
 
 		//datos para el reporte
 		if(trampas[0] == 1){
@@ -136,10 +138,10 @@ public class dificiles {
 				}
 			}
 		}else{
-			System.out.println("Correcto!!");
-			System.out.println("");
-			boolean resultado = true;
-			if(determinanteR != 0){
+			if(determinanteR ==  determinanteUsuario){
+				System.out.println("Correcto!!");
+				System.out.println("");
+				boolean resultado = true;
 				double[][] matrizUsuario = ingresoUsuarioMatriz();
 				for (int i = 0; i < matrizUsuario.length; i++) {
 					for (int j = 0; j < matrizUsuario[i].length; j++) {
@@ -262,10 +264,10 @@ public class dificiles {
 				}
 			}
 		}else{
-			System.out.println("Correcto!!");
-			System.out.println("");
-			boolean resultado = true;
-			if(determinanteR != 0){
+			if(determinanteR == determinanteUsuario){
+				System.out.println("Correcto!!");
+				System.out.println("");
+				boolean resultado = true;
 				double[][] matrizUsuario = ingresoUsuarioMatriz();
 				for (int i = 0; i < matrizUsuario.length; i++) {
 					for (int j = 0; j < matrizUsuario[i].length; j++) {
@@ -388,10 +390,10 @@ public class dificiles {
 				}
 			}
 		}else{
-			System.out.println("Correcto!!");
-			System.out.println("");
-			boolean resultado = true;
-			if(determinanteR != 0){
+			if(determinanteR == determinanteUsuario){
+				System.out.println("Correcto!!");
+				System.out.println("");
+				boolean resultado = true;
 				double[][] matrizUsuario = ingresoUsuarioMatriz();
 				for (int i = 0; i < matrizUsuario.length; i++) {
 					for (int j = 0; j < matrizUsuario[i].length; j++) {
@@ -537,7 +539,7 @@ public class dificiles {
 
 			//determinante en metodo de los adjuntos  =
 			// A_1(i+1) * (-1)^(1+(i+1)) * (determinante de matriz menor)
-            determinante += matriz[0][i] * Math.pow (-1, (double) i) * encontrarDeterminante(temporal);
+            determinante += matriz[0][i] * Math.pow (-1, (i+2)) * encontrarDeterminante(temporal);
         }
         return (determinante);
     }

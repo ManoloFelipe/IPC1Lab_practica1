@@ -142,16 +142,12 @@ public class Tablero {
             int trampa = 0;
             switch(jugador.fila){
                 case 1: case 2:
-                    trampa = tDificiles.seleccionarProblema(jugador.posicion);
-                    tDificiles.problema(trampa);
-                    // trampa = tFaciles.seleccionarProblema(jugador.posicion);
-                    // tFaciles.problema(trampa);
+                    trampa = tFaciles.seleccionarProblema(jugador.posicion);
+                    tFaciles.problema(trampa);
                     break;
                 case 3: case 4: case 5:
-                    trampa = tDificiles.seleccionarProblema(jugador.posicion);
-                    tDificiles.problema(trampa);
-                    // trampa = tMedias.seleccionarProblema(jugador.posicion);
-                    // tMedias.problema(trampa);
+                    trampa = tMedias.seleccionarProblema(jugador.posicion);
+                    tMedias.problema(trampa);
                     break;
                 case 6: case 7: case 8:
                     trampa = tDificiles.seleccionarProblema(jugador.posicion);

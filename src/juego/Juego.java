@@ -118,8 +118,8 @@ public class Juego {
                                 menu(jugador,trampas,tFaciles,tMedias,tDificiles,juegoFinalizado);
                                 break;
                             case 2:
-                                if(!juegoFinalizado)System.out.println("Juego en curso, aun no disponible");
-                                else reportes.generarReporte2(tFaciles, tMedias, tDificiles, jugador);
+                                // reportes.generarReporte2(tFaciles, tMedias, tDificiles, jugador);
+                                System.out.println("en desarrollo");
                                 menu(jugador,trampas,tFaciles,tMedias,tDificiles,juegoFinalizado);
                                 break;
                             case 3:
