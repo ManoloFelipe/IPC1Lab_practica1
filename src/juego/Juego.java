@@ -20,7 +20,7 @@ public class Juego {
             Juego obj = new Juego();
             obj.run(args);
         }catch (Exception e){
-        e.printStackTrace ();
+            e.printStackTrace ();
         }
     }
     
